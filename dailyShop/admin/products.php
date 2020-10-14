@@ -123,7 +123,6 @@ if (isset($_POST['submit'])) {
 						if ($result->num_rows > 0) :
 
 							while ($row = $result->fetch_assoc()) :
-								$temp_id = $row['category_id'];
 
 						?>
 
@@ -138,8 +137,8 @@ if (isset($_POST['submit'])) {
 									<td><?php echo $row['description']; ?></td>
 									<td>
 										<!-- Icons -->
-										<a href="#" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
-										<a href="#" title="Delete"><img src="resources/images/icons/cross.png" alt="Delete" /></a>
+										<a <?php echo "href='edit.php?id=" . $row['id'] . "&action=editproduct'" ?> title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
+										<a <?php echo "href='delete.php?id=" . $row['id'] . "&action=deleteproduct'" ?> title="Delete"><img src="resources/images/icons/cross.png" alt="Delete" /></a>
 										<a href="#" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
 									</td>
 								</tr>
