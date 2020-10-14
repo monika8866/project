@@ -6,7 +6,7 @@
                     $filename = basename($_SERVER['REQUEST_URI']);
 
                     $productmenu = array('products.php','categories.php','tags.php');
-                    $usermenu = array('adduser.php','manageuser.php');
+                    $usermenu = array('user.php');
                     $ordermenu = array('manageorders.php');
                     $settingmenu = array('general.php');
 
@@ -52,8 +52,7 @@
 		                    Users
 		                </a>
 		                <ul>
-		                    <li><a <?php if($filename=="adduser.php"): ?>class="current"<?php endif ?> href="adduser.php">Add User</a></li>
-		                    <li><a <?php if($filename=="manageuser.php"): ?>class="current"<?php endif ?> href="manageuser.php">Manage User</a></li>
+		                    <li><a <?php if($filename=="user.php"): ?>class="current"<?php endif ?> href="user.php">Manage User</a></li>
 		                </ul>
 		            </li>
 		            <li>
