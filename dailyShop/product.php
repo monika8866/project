@@ -305,19 +305,13 @@ if (isset($_GET['id'])) {
                   <div class="simpleLens-big-image-container">
                     <script>
                       $('.fa fa-search').click(function() {
-                        var $productid = $(this).data('productid');
-                        $(document).ready(function() {
-                          $('.add-to-cart').click(function() {
                             var productid = $(this).data('productid');
-                            //  console.log('clicked '+productid);
                             $.ajax({
                               method: "POST",
                               url: "product.php",
                               data: {
                                 proid: productid
                               }
-                            })
-                          })
                         })
                       });
                     </script>
