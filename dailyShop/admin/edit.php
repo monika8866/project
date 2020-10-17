@@ -115,7 +115,7 @@ if (isset($_GET['id'])) {
         echo '</p>
         <p>
             <label>Description</label>
-            <textarea class="text-input textarea wysiwyg" id="textarea" name="long_description" cols="79" rows="15" value="' . $row['description'] . '"></textarea>
+            <textarea class="text-input textarea wysiwyg" id="textarea" name="long_description" cols="79" rows="15" value="' . $row['long_description'] . '"></textarea>
         </p>';
 
         echo $html3;

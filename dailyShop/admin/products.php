@@ -15,13 +15,29 @@ if (isset($_POST['submit'])) {
 	$price 		= isset($_POST['product-price']) ? $_POST['product-price'] : '';
 	$category 	= isset($_POST['product-category']) ? $_POST['product-category'] : '';
 	$tag		= isset($_POST['tag']) ? $_POST['tag'] : '';
-	$description = isset($_POST['long_description']) ? $_POST['long_description'] : '';
+	$short 		= isset($_POST['short']) ? $_POST['short'] : '';
+	$description= isset($_POST['long_description']) ? $_POST['long_description'] : '';
+	$color		= isset($_POST['color']) ? $_POST['color'] : '';
+
 	$tags 		= json_encode($tag);
 
-	$query = "INSERT INTO products (name,image,price,category_id,tag,description) VALUES('$name','$filename','$price','$category','$tags','$description')";
+	$query = "INSERT INTO products (name,image,price,category_id,tag,short_description,long_description) VALUES('$name','$filename','$price','$category','$tags','$short','$description')";
 
 	$result = mysqli_query($connection, $query)
 		or die("Values cannot be Inserted" . mysqli_error($connection));
+
+		$query = 'SELECT * FROM products';
+        $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+                                     
+        if ($result->num_rows > 0) :
+                                     
+		while ($row = $result->fetch_assoc()) :
+			$temp = $row['id'];
+		endwhile;
+		endif;
+	$query ="INSERT INTO colors (product_id,color,quantity) VALUES('$temp','$color',1)";
+	$result = mysqli_query($connection, $query)
+	or die("Values cannot be Inserted" . mysqli_error($connection));
 }
 ?>
 
@@ -129,12 +145,12 @@ if (isset($_POST['submit'])) {
 								<tr>
 									<td><input type="checkbox" /></td>
 									<td><?php echo $row['id']; ?></td>
-									<td><?php echo '<image src="resources/images/product/' . $row['image'] . '" height="50" width="50">'; ?></td>
+									<td><?php echo '<image src="resources/images/product/' . $row['image'] . '" height="100" width="100">'; ?></td>
 									<td><?php echo $row['name']; ?></td>
 									<td>$<?php echo $row['price']; ?></td>
 									<td><?php echo $row['category_id']; ?></td>
 									<td><?php $tags=json_decode($row['tag']); foreach($tags as $temp){echo $temp." ";}?></td>
-									<td><?php echo $row['description']; ?></td>
+									<td><?php echo $row['short_description']; ?></td>
 									<td>
 										<!-- Icons -->
 										<a <?php echo "href='edit.php?id=" . $row['id'] . "&action=editproduct'" ?> title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
@@ -194,7 +210,7 @@ if (isset($_POST['submit'])) {
 						<p>
 							<label>Tags</label>
 							<?php
-								$query = "SELECT * FROM categories";
+								$query = "SELECT * FROM tags";
 								$result = mysqli_query($connection, $query) or die("No products");
 								if ($result->num_rows > 0) :
 									while ($row = $result->fetch_assoc()) :
@@ -207,7 +223,17 @@ if (isset($_POST['submit'])) {
 						</p>
 
 						<p>
-							<label>Description</label>
+							<label>Color</label>
+							<input class="text-input small-input" type="text" name="color" required />
+						</p>
+
+						<p>
+							<label>Short Description</label>
+							<input class="text-input large-input" type="text" name="short" required />
+						</p>
+
+						<p>
+							<label>Long Description</label>
 							<textarea class="text-input textarea wysiwyg" id="textarea" name="long_description" cols="79" rows="15"></textarea>
 						</p>
 
